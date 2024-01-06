@@ -18,7 +18,7 @@ static Connection con = null;
 	private String roomType;
 	private String maxGuest;
 	private String roomArea;
-	private String roomSize;
+	private double roomSize;
 	private String roomStatus;
 
 	//add shawl
@@ -59,7 +59,7 @@ static Connection con = null;
 	
 	//get all shawls
 	public static List<shawlBean> getAllRooms(){
-		List<shawlBean> rooms = new ArrayList<RoomBean>();
+		List<RoomBean> rooms = new ArrayList<RoomBean>();
 		
 		try {
 			//call getConnection() method
@@ -67,21 +67,21 @@ static Connection con = null;
 			
 			//3. create statement 
 			stmt = con.createStatement();
-			String sql = "SELECT * FROM shawl ORDER BY id";
+			String sql = "SELECT * FROM room ORDER BY id";
 			
 			//4. execute query
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {		//process result
-				shawlBean s = new shawlBean();
-				s.setId(rs.getInt("id"));
-				s.setName(rs.getString("name"));
-				s.setBrand(rs.getString("brand"));
-				s.setColor(rs.getString("color"));
-				s.setMaterial(rs.getString("material"));
-				s.setPrice(rs.getDouble("price"));
-				s.setQuantity(rs.getInt("quantity"));
-				shawls.add(s);
+				RoomBean room = new RoomBean();
+				//roomNum,roomType,maxGuest,roomArea,roomSize,roomStatus
+				room.setRoomNum(rs.getInt("roomNum"));
+				room.setRoomType(rs.getString("roomType"));
+				room.setMaxGuest(rs.getString("maxGuest"));
+				room.setRoomArea(rs.getString("roomArea"));
+				room.setRoomSize(rs.getString("roomSize"));
+				room.setRoomStatus(rs.getDouble("roomStatus"));
+				rooms.add(room);
 			}
 			
 			//5. close connection
@@ -94,31 +94,31 @@ static Connection con = null;
 		}
 		
 		
-		return shawls;
+		return rooms;
 	}
 		
 	//get shawl by id
 	
-	public static shawlBean getShawlById(int id) {
-		shawlBean s = new shawlBean();
+	public static RoomBean getRoomById(int roomNum) {
+		RoomBean room = new RoomBean();
 		try {
 			//call getConnection() method
 			con = connectionManager.getConnection();
 			
 			//3. create statement 
-			ps = con.prepareStatement("SELECT * FROM shawl WHERE id=?");
-			ps.setInt(1, id);
+			ps = con.prepareStatement("SELECT * FROM room WHERE roomNum=?");
+			ps.setInt(1, roomNum);
 			
 			//4. execute query
 			rs = ps.executeQuery();
 			if(rs.next()) {
-			s.setId(rs.getInt("id"));
-			s.setName(rs.getString("name"));
-			s.setBrand(rs.getString("brand"));
-			s.setColor(rs.getString("color"));
-			s.setMaterial(rs.getString("material"));
-			s.setPrice(rs.getDouble("price"));
-			s.setQuantity(rs.getInt("quantity"));			
+			room.setRoomNum(rs.getInt("roomNum"));
+				room.setRoomType(rs.getString("roomType"));
+				room.setMaxGuest(rs.getString("maxGuest"));
+				room.setRoomArea(rs.getString("roomArea"));
+				room.setRoomSize(rs.getString("roomSize"));
+				room.setRoomStatus(rs.getDouble("roomStatus"));
+				
 			}
 			//5. close connection
 			con.close();
@@ -126,18 +126,18 @@ static Connection con = null;
 		}catch(Exception e) {
 			e.printStackTrace();	
 		}			
-		return s;
+		return room;
 	}
 	
 	//delete shawl	
-	public void deleteShawl(int id) {
+	public void deleteRoom(int roomNum) {
 		try {
 			//call getConnection() method
 			con = connectionManager.getConnection();
 			
 			//3. create statement 			
-			ps = con.prepareStatement("DELETE FROM shawl WHERE id=?");
-			ps.setInt(1, id);
+			ps = con.prepareStatement("DELETE FROM room WHERE roomNum=?");
+			ps.setInt(1, roomNum);
 			
 			//4. execute query
 			ps.executeUpdate();
@@ -152,29 +152,29 @@ static Connection con = null;
 	
 	//update shawl
 	
-	public void updateShawl(shawlBean bean) {
+	public void updateShawl(RoomBean bean) {
+
+		roomNum = bean.getroomNum();
+		roomType  = bean.getroomType();
+		maxGuest = bean.getMaxGuest();
+		roomArea = bean.getroomArea();
+		roomSize = bean.getroomSize();
+		roomStatus = bean.getroomStatus();
 		
-		id = bean.getId();
-		name = bean.getName();
-		brand  = bean.getBrand();
-		color = bean.getColor();
-		material = bean.getMaterial();
-		price = bean.getPrice();
-		quantity = bean.getQuantity();
 		
 		try {			
 			//call getConnection() method
 			con = connectionManager.getConnection();
 			
 			//3. create statement
-			ps = con.prepareStatement("UPDATE shawl SET name=?,brand=?,color=?,material=?,price=?,quantity=? WHERE id=?");
-			ps.setString(1, name);
-			ps.setString(2, brand);
-			ps.setString(3, color);
-			ps.setString(4, material);
-			ps.setDouble(5, price);
-			ps.setInt(6, quantity);
-			ps.setInt(7, id);
+			ps = con.prepareStatement("UPDATE room SET roomType=?,maxGuest=?,roomArea=?,roomSize=?,roomStatus=? WHERE roomNum=?");
+			//roomNum,roomType,maxGuest,roomArea,roomSize,roomStatus
+			ps.setString(1, roomType);
+			ps.setString(2, maxGuest);
+			ps.setString(3, roomArea);
+			ps.setString(4, roomSize);
+			ps.setDouble(5, roomStatus);
+			ps.setInt(6, roomNum);
 			
 			//4. execute query
 			ps.executeUpdate();
