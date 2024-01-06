@@ -1,6 +1,6 @@
 package guest.model;
 
-public class serviceBean {
+public class ServiceBean {
 
 	private String serviceID;
 	private String serviceName;
