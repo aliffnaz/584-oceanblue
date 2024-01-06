@@ -1,6 +1,6 @@
 package guest.model;
 
-public class staffBean {
+public class StaffBean {
 	private String staffICNumber;
 	private String staffName;
 	private String staffGender;
