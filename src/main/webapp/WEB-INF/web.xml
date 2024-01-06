@@ -21,23 +21,23 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>guestDAO</display-name>
-    <servlet-name>guestDAO</servlet-name>
-    <servlet-class>guest.dao.guestDAO</servlet-class>
+    <display-name>GuestDAO</display-name>
+    <servlet-name>GuestDAO</servlet-name>
+    <servlet-class>guest.dao.GuestDAO</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>guestDAO</servlet-name>
-    <url-pattern>/guestDAO</url-pattern>
+    <servlet-name>GuestDAO</servlet-name>
+    <url-pattern>/GuestDAO</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>guestBean</display-name>
-    <servlet-name>guestBean</servlet-name>
-    <servlet-class>guest.model.guestBean</servlet-class>
+    <display-name>GuestBean</display-name>
+    <servlet-name>GuestBean</servlet-name>
+    <servlet-class>guest.model.GuestBean</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>guestBean</servlet-name>
-    <url-pattern>/guestBean</url-pattern>
+    <servlet-name>GuestBean</servlet-name>
+    <url-pattern>/GuestBean</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
