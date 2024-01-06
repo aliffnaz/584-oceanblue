@@ -1,6 +1,6 @@
 package guest.model;
 
-public class roomBean {
+public class RoomBean {
 	private String roomNum;
 	private String roomType;
 	private String maxGuest;
