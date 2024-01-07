@@ -98,7 +98,7 @@ public class GuestDAO {
 
 	// get guest by guestID
 
-	public static GuestBean getGuestById(int guestID) {
+	public static GuestBean getGuestById(String guestICNumber) {
 		GuestBean gst = new GuestBean();
 		try {
 			// call getConnection() method
@@ -106,12 +106,11 @@ public class GuestDAO {
 
 			// 3. create statement
 			ps = con.prepareStatement("SELECT * FROM guest WHERE guestICNumber=?");
-			ps.setInt(1, guestID);
+			ps.setString(1, guestICNumber);
 
 			// 4. execute query
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				gst.setGuestID(rs.getInt("guestID"));
 				gst.setGuestName(rs.getString("guestName"));
 				gst.setGuestPhoneNumber(rs.getString("guestPhoneNumber"));
 				gst.setGuestICNumber(rs.getString("guestICNumber"));
