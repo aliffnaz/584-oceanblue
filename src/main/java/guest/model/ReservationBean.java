@@ -3,15 +3,15 @@ package guest.model;
 public class ReservationBean {
 	private int reservationID;
 	private String guestICNumber;
-	private String guestQuantity;
-	private String durationOfStay;
+	private int guestQuantity;
+	private int durationOfStay;
 	private String dateStart;
 	private String dateEnd;
-	private String totalAdult;
-	private String totalKids;
+	private int totalAdult;
+	private int totalKids;
 	private String reserveStatus;
-	private String totalRoom;
-	private String totalPayment;
+	private int totalRoom;
+	private Double totalPayment;
 	private String staffICNumber;
 	
 	
@@ -27,16 +27,16 @@ public class ReservationBean {
 	public void setGuestICNumber(String guestICNumber) {
 		this.guestICNumber = guestICNumber;
 	}
-	public String getGuestQuantity() {
+	public int getGuestQuantity() {
 		return guestQuantity;
 	}
-	public void setGuestQuantity(String guestQuantity) {
+	public void setGuestQuantity(int guestQuantity) {
 		this.guestQuantity = guestQuantity;
 	}
-	public String getDurationOfStay() {
+	public int getDurationOfStay() {
 		return durationOfStay;
 	}
-	public void setDurationOfStay(String durationOfStay) {
+	public void setDurationOfStay(int durationOfStay) {
 		this.durationOfStay = durationOfStay;
 	}
 	public String getDateStart() {
@@ -51,16 +51,16 @@ public class ReservationBean {
 	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
 	}
-	public String getTotalAdult() {
+	public int getTotalAdult() {
 		return totalAdult;
 	}
-	public void setTotalAdult(String totalAdult) {
+	public void setTotalAdult(int totalAdult) {
 		this.totalAdult = totalAdult;
 	}
-	public String getTotalKids() {
+	public int getTotalKids() {
 		return totalKids;
 	}
-	public void setTotalKids(String totalKids) {
+	public void setTotalKids(int totalKids) {
 		this.totalKids = totalKids;
 	}
 	public String getReserveStatus() {
@@ -69,16 +69,16 @@ public class ReservationBean {
 	public void setReserveStatus(String reserveStatus) {
 		this.reserveStatus = reserveStatus;
 	}
-	public String getTotalRoom() {
+	public int getTotalRoom() {
 		return totalRoom;
 	}
-	public void setTotalRoom(String totalRoom) {
+	public void setTotalRoom(int totalRoom) {
 		this.totalRoom = totalRoom;
 	}
-	public String getTotalPayment() {
+	public Double getTotalPayment() {
 		return totalPayment;
 	}
-	public void setTotalPayment(String totalPayment) {
+	public void setTotalPayment(Double totalPayment) {
 		this.totalPayment = totalPayment;
 	}
 	public String getStaffICNumber() {

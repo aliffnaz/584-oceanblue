@@ -5,7 +5,7 @@ public class ServiceBean {
 	private String serviceID;
 	private String serviceName;
 	private String serviceType;
-	private String servicePrice;
+	private double servicePrice;
 	private String serviceStatus;
 
 	public String getServiceID() {
@@ -32,11 +32,11 @@ public class ServiceBean {
 		this.serviceType = serviceType;
 	}
 
-	public String getServicePrice() {
+	public double getServicePrice() {
 		return servicePrice;
 	}
 
-	public void setServicePrice(String servicePrice) {
+	public void setServicePrice(double servicePrice) {
 		this.servicePrice = servicePrice;
 	}
 

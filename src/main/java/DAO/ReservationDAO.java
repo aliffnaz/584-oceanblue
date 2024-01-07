@@ -1,4 +1,4 @@
-package reservation.dao;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import reservation.db.ConnectionManager;
-import reservation.model.ReservationBean;
+import databaseConnection.dbConnection;
+import guest.model.ReservationBean;
 
 public class ReservationDAO {
 	
@@ -16,8 +16,8 @@ public class ReservationDAO {
 	static PreparedStatement ps = null;
 	static Statement stmt = null;
 	static ResultSet rs = null;
-	private int reservationID,guestQuantity,durationOfStay,totalAdult,totalKids,totalRoom;
-	private String guestICNumber,dateStart,dateEnd,reserveStatus,staffICNumber;
+	private int guestQuantity,durationOfStay,totalAdult,totalKids,totalRoom;
+	private String guestICNumber,dateStart,dateEnd,reserveStatus,staffICNumber,reservationID;
   private Double totalPayment;
 
 	//add reservation
@@ -37,7 +37,7 @@ public class ReservationDAO {
 		
 		try {			
 			//call getConnection() method
-			con = ConnectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement
 			ps = con.prepareStatement("INSERT INTO reservation(guestICNumber,guestQuantity,durationOfStay,dateStart,dateEnd,totalAdult,totalKids,reserveStatus,totalRoom,totalPayment,staffICNumber)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
@@ -72,7 +72,7 @@ public class ReservationDAO {
 		
 		try {
 			//call getConnection() method
-			con = ConnectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 
 			stmt = con.createStatement();
@@ -117,7 +117,7 @@ public class ReservationDAO {
 		ReservationBean rsv = new ReservationBean();
 		try {
 			//call getConnection() method
-			con = ConnectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 
 			ps = con.prepareStatement("SELECT * FROM reservation WHERE reservationID=?");
@@ -144,14 +144,14 @@ public class ReservationDAO {
 		}catch(Exception e) {
 			e.printStackTrace();	
 		}			
-		return s;
+		return rsv;
 	}
 	
 	//delete reservation	
 	public void deleteReservation(int reservationID) {
 		try {
 			//call getConnection() method
-			con = ConnectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 			
 			ps = con.prepareStatement("DELETE FROM reservation WHERE reservationID=?");
@@ -186,11 +186,12 @@ public class ReservationDAO {
 		
 		try {			
 			//call getConnection() method
-			con = ConnectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement - for MANAGER only
 			ps = con.prepareStatement("UPDATE reservation SET reservestatus=? WHERE reservationID=?");
       ps.setString(1, reserveStatus);
+      ps.setString(2, reservationID);
       //ps.setString(1, guestICNumber);
       //ps.setInt(2, guestQuantity);
       //ps.setInt(3, durationOfStay);

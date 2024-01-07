@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import databaseConnection.dbConnection;
-import guest.model.RoomBean.*;
+import guest.model.*;
 
 public class RoomDAO {
 static Connection con = null;
@@ -16,33 +16,30 @@ static Connection con = null;
 	static ResultSet rs = null;
 	private String roomNum;
 	private String roomType;
-	private String maxGuest;
-	private String roomArea;
-	private double roomSize;
+	private int maxGuest;
+	private String roomSize;
 	private String roomStatus;
 
 	//add shawl
 	public void addRoom(RoomBean bean) {
 		
-		roomNum = bean.getroomNum();
-		roomType  = bean.getroomType();
+		roomNum = bean.getRoomNum();
+		roomType  = bean.getRoomType();
 		maxGuest = bean.getMaxGuest();
-		roomArea = bean.getroomArea();
-		roomSize = bean.getroomSize();
-		roomStatus = bean.getroomStatus();
+		roomSize = bean.getRoomSize();
+		roomStatus = bean.getRoomStatus();
 		
 		try {			
 			//call getConnection() method
-			con = connectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement
-			ps = con.prepareStatement("INSERT INTO room(roomNum,roomType,maxGuest,roomArea,roomSize,roomStatus)VALUES(?,?,?,?,?,?)");
+			ps = con.prepareStatement("INSERT INTO room(roomNum,roomType,maxGuest,roomSize,roomStatus)VALUES(?,?,?,?,?)");
 			ps.setString(1, roomNum);
 			ps.setString(2, roomType);
-			ps.setString(3, maxGuest);
-			ps.setString(4, roomArea);
-			ps.setDouble(5, roomSize);
-			ps.setInt(6, roomStatus);
+			ps.setInt(3, maxGuest);
+			ps.setString(4, roomSize);
+			ps.setString(5, roomStatus);
 			
 			//4. execute query
 			ps.executeUpdate();
@@ -58,12 +55,12 @@ static Connection con = null;
 	}	
 	
 	//get all shawls
-	public static List<shawlBean> getAllRooms(){
+	public static List<RoomBean> getAllRooms(){
 		List<RoomBean> rooms = new ArrayList<RoomBean>();
 		
 		try {
 			//call getConnection() method
-			con = connectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 
 			stmt = con.createStatement();
@@ -75,12 +72,11 @@ static Connection con = null;
 			while(rs.next()) {		//process result
 				RoomBean room = new RoomBean();
 				//roomNum,roomType,maxGuest,roomArea,roomSize,roomStatus
-				room.setRoomNum(rs.getInt("roomNum"));
+				room.setRoomNum(rs.getString("roomNum"));
 				room.setRoomType(rs.getString("roomType"));
-				room.setMaxGuest(rs.getString("maxGuest"));
-				room.setRoomArea(rs.getString("roomArea"));
+				room.setMaxGuest(rs.getInt("maxGuest"));
 				room.setRoomSize(rs.getString("roomSize"));
-				room.setRoomStatus(rs.getDouble("roomStatus"));
+				room.setRoomStatus(rs.getString("roomStatus"));
 				rooms.add(room);
 			}
 			
@@ -103,7 +99,7 @@ static Connection con = null;
 		RoomBean room = new RoomBean();
 		try {
 			//call getConnection() method
-			con = connectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 
 			ps = con.prepareStatement("SELECT * FROM room WHERE roomNum=?");
@@ -112,12 +108,11 @@ static Connection con = null;
 			//4. execute query
 			rs = ps.executeQuery();
 			if(rs.next()) {
-			room.setRoomNum(rs.getInt("roomNum"));
+			room.setRoomNum(rs.getString("roomNum"));
 				room.setRoomType(rs.getString("roomType"));
-				room.setMaxGuest(rs.getString("maxGuest"));
-				room.setRoomArea(rs.getString("roomArea"));
+				room.setMaxGuest(rs.getInt("maxGuest"));
 				room.setRoomSize(rs.getString("roomSize"));
-				room.setRoomStatus(rs.getDouble("roomStatus"));
+				room.setRoomStatus(rs.getString("roomStatus"));
 				
 			}
 			//5. close connection
@@ -133,7 +128,7 @@ static Connection con = null;
 	public void deleteRoom(int roomNum) {
 		try {
 			//call getConnection() method
-			con = connectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement 			
 			ps = con.prepareStatement("DELETE FROM room WHERE roomNum=?");
@@ -154,27 +149,25 @@ static Connection con = null;
 	
 	public void updateShawl(RoomBean bean) {
 
-		roomNum = bean.getroomNum();
-		roomType  = bean.getroomType();
+		roomNum = bean.getRoomNum();
+		roomType  = bean.getRoomType();
 		maxGuest = bean.getMaxGuest();
-		roomArea = bean.getroomArea();
-		roomSize = bean.getroomSize();
-		roomStatus = bean.getroomStatus();
+		roomSize = bean.getRoomSize();
+		roomStatus = bean.getRoomStatus();
 		
 		
 		try {			
 			//call getConnection() method
-			con = connectionManager.getConnection();
+			con = dbConnection.getConnection();
 			
 			//3. create statement
-			ps = con.prepareStatement("UPDATE room SET roomType=?,maxGuest=?,roomArea=?,roomSize=?,roomStatus=? WHERE roomNum=?");
+			ps = con.prepareStatement("UPDATE room SET roomType=?,maxGuest=?,roomSize=?,roomStatus=? WHERE roomNum=?");
 			//roomNum,roomType,maxGuest,roomArea,roomSize,roomStatus
 			ps.setString(1, roomType);
-			ps.setString(2, maxGuest);
-			ps.setString(3, roomArea);
+			ps.setInt(2, maxGuest);
 			ps.setString(4, roomSize);
-			ps.setDouble(5, roomStatus);
-			ps.setInt(6, roomNum);
+			ps.setString(5, roomStatus);
+			ps.setString(6, roomNum);
 			
 			//4. execute query
 			ps.executeUpdate();

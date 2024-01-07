@@ -3,8 +3,7 @@ package guest.model;
 public class RoomBean {
 	private String roomNum;
 	private String roomType;
-	private String maxGuest;
-	private String roomArea;
+	private int maxGuest;
 	private String roomSize;
 	private String roomStatus;
 
@@ -12,8 +11,8 @@ public class RoomBean {
 		return roomNum;
 	}
 
-	public void setRoomNum(String roomNum) {
-		this.roomNum = roomNum;
+	public void setRoomNum(String i) {
+		this.roomNum = i;
 	}
 
 	public String getRoomType() {
@@ -24,22 +23,15 @@ public class RoomBean {
 		this.roomType = roomType;
 	}
 
-	public String getMaxGuest() {
+	public int getMaxGuest() {
 		return maxGuest;
 	}
 
-	public void setMaxGuest(String maxGuest) {
+	public void setMaxGuest(int maxGuest) {
 		this.maxGuest = maxGuest;
 	}
 
-	public String getRoomArea() {
-		return roomArea;
-	}
-
-	public void setRoomArea(String roomArea) {
-		this.roomArea = roomArea;
-	}
-
+	
 	public String getRoomSize() {
 		return roomSize;
 	}
